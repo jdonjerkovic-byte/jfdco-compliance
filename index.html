@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="JFDCO Compliance">
+  <title>JFDCO Compliance System</title>
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --navy:        #0A1628;
+      --navy-light:  #1A2744;
+      --navy-mid:    #243358;
+      --navy-border: #2E4070;
+      --gold:        #C9A84C;
+      --gold-light:  #E5C470;
+      --gold-dim:    #8B6F2A;
+      --white:       #FFFFFF;
+      --off-white:   #F5F7FA;
+      --gray-100:    #E8ECF2;
+      --gray-200:    #C5CDD9;
+      --gray-400:    #8897A6;
+      --gray-600:    #4A5568;
+      --text-primary:   #FFFFFF;
+      --text-secondary: #A8B5C8;
+      --text-muted:     #6B7A8D;
+      --success:   #2ECC71;
+      --warning:   #F39C12;
+      --danger:    #E74C3C;
+      --info:      #3498DB;
+      --bg-main:   var(--navy);
+      --bg-card:   var(--navy-light);
+      --bg-input:  var(--navy-mid);
+      --border:    var(--navy-border);
+      --shadow:    0 4px 24px rgba(0,0,0,0.4);
+      --radius:    10px;
+      --radius-sm: 6px;
+      --transition: 0.18s ease;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-serif: Georgia, 'Times New Roman', Times, serif;
+      --font-mono:  'SF Mono', SFMono-Regular, Consolas, monospace;
+      --header-h:  64px;
+      --nav-h:     52px;
+      --min-touch: 44px;
+    }
+    [data-theme="light"] {
+      --navy:        #F0F4FA;
+      --navy-light:  #FFFFFF;
+      --navy-mid:    #E8ECF2;
+      --navy-border: #C5CDD9;
+      --text-primary:   #0A1628;
+      --text-secondary: #3A4A5C;
+      --text-muted:     #6B7A8D;
+      --bg-main:   #F0F4FA;
+      --bg-card:   #FFFFFF;
+      --bg-input:  #F5F7FA;
+      --border:    #C5CDD9;
+      --shadow:    0 4px 24px rgba(0,0,0,0.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ============================================================
+       SCROLLBAR STYLING
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+    /* ============================================================
+       SCREENS
+    ============================================================ */
+    .screen { width: 100%; height: 100%; position: fixed; top: 0; left: 0; }
+
+    /* ============================================================
+       LOGIN SCREEN
+    ============================================================ */
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      background: var(--navy);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(41,83,138,0.15) 0%, transparent 50%);
+    }
+    .login-container {
+      width: 100%; max-width: 420px; padding: 40px 32px;
+      background: var(--navy-light);
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      box-shadow: var(--shadow), 0 0 80px rgba(201,168,76,0.06);
+      margin: 20px;
+    }
+    .login-logo {
+      text-align: center; margin-bottom: 32px;
+    }
+    .login-logo .logo-icon {
+      width: 72px; height: 72px; margin: 0 auto 16px;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; font-weight: 800; color: var(--navy);
+      letter-spacing: -1px;
+      box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+    }
+    .login-logo h1 {
+      font-size: 26px; font-weight: 800; letter-spacing: 2px;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .login-logo p {
+      font-size: 13px; color: var(--text-secondary); letter-spacing: 0.5px;
+    }
+    .login-error {
+      background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4);
+      color: #FF6B6B; border-radius: var(--radius-sm);
+      padding: 10px 14px; font-size: 13px; margin-bottom: 16px;
+      display: none;
+    }
+    .remember-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px; cursor: pointer;
+    }
+    .remember-row input[type="checkbox"] { display: none; }
+    .custom-checkbox {
+      width: 20px; height: 20px; border-radius: 5px;
+      border: 2px solid var(--border); background: var(--bg-input);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: var(--transition);
+    }
+    .remember-row input:checked + .custom-checkbox {
+      background: var(--gold); border-color: var(--gold);
+    }
+    .custom-checkbox::after {
+      content: '✓'; font-size: 12px; color: var(--navy);
+      display: none; font-weight: 700;
+    }
+    .remember-row input:checked + .custom-checkbox::after { display: block; }
+    .remember-label { font-size: 14px; color: var(--text-secondary); user-select: none; }
+
+    /* ============================================================
+       MAIN APP LAYOUT
+    ============================================================ */
+    #mainApp {
+      display: none;
+      flex-direction: column;
+    }
+    #mainApp.visible {
+      display: flex;
+    }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .app-header {
+      height: var(--header-h);
+      background: var(--navy-light);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+    .header-brand {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .header-logo {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; color: var(--navy); letter-spacing: -0.5px;
+    }
+    .header-title {
+      font-size: 17px; font-weight: 700; color: var(--text-primary);
+      letter-spacing: 0.3px;
+    }
+    .header-subtitle {
+      font-size: 11px; color: var(--gold); font-weight: 500; letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .header-actions {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .backup-badge {
+      background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4);
+      color: var(--warning); border-radius: 20px;
+      padding: 4px 12px; font-size: 12px; font-weight: 600;
+      display: none;
+    }
+    .backup-badge.show { display: inline-flex; align-items: center; gap: 5px; }
+
+    /* ============================================================
+       TAB NAVIGATION
+    ============================================================ */
+    .tab-nav {
+      height: var(--nav-h);
+      background: var(--navy);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: stretch;
+      overflow-x: auto; overflow-y: hidden;
+      flex-shrink: 0;
+      z-index: 90;
+    }
+    .tab-nav::-webkit-scrollbar { height: 0; }
+    .tab-btn {
+      padding: 0 22px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-muted);
+      background: transparent; border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer; white-space: nowrap;
+      transition: var(--transition);
+      display: flex; align-items: center; gap: 7px;
+      min-height: var(--min-touch);
+      letter-spacing: 0.2px;
+    }
+    .tab-btn:hover { color: var(--text-secondary); background: rgba(255,255,255,0.03); }
+    .tab-btn.active {
+      color: var(--gold); border-bottom-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+    }
+    .tab-btn .tab-icon { font-size: 15px; }
+
+    /* ============================================================
+       TAB CONTENT AREA
+    ============================================================ */
+    .tab-content {
+      flex: 1; overflow: hidden; position: relative;
+    }
+    .tab-panel {
+      display: none; height: 100%;
+      overflow-y: auto; overflow-x: hidden;
+      padding: 20px;
+    }
+    .tab-panel.active { display: block; }
+
+    /* ============================================================
+       CARDS
+    ============================================================ */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-title {
+      font-size: 15px; font-weight: 700; color: var(--text-primary);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-title .icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: rgba(201,168,76,0.15); display: flex;
+      align-items: center; justify-content: center; font-size: 14px;
+    }
+    .card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ============================================================
+       ENTITY INFO CARDS
+    ============================================================ */
+    .entity-card {
+      background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      position: relative; overflow: hidden;
+    }
+    .entity-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+    .entity-name {
+      font-size: 19px; font-weight: 800; color: var(--gold);
+      letter-spacing: 1px; margin-bottom: 4px;
+    }
+    .entity-subtitle {
+      font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;
+    }
+    .entity-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .entity-field label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text-muted); display: block; margin-bottom: 2px;
+    }
+    .entity-field span {
+      font-size: 14px; color: var(--text-primary); font-weight: 500;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 0 18px; height: var(--min-touch);
+      border-radius: var(--radius-sm); border: 1px solid transparent;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: var(--transition); white-space: nowrap;
+      text-decoration: none; letter-spacing: 0.2px;
+      -webkit-user-select: none; user-select: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--gold); color: var(--navy); border-color: var(--gold);
+    }
+    .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .btn-secondary {
+      background: var(--navy-mid); color: var(--text-primary);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover { background: var(--navy-border); }
+    .btn-ghost {
+      background: transparent; color: var(--text-secondary);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+    .btn-danger {
+      background: rgba(231,76,60,0.15); color: #FF6B6B;
+      border-color: rgba(231,76,60,0.35);
+    }
+    .btn-danger:hover { background: rgba(231,76,60,0.25); }
+    .btn-success {
+      background: rgba(46,204,113,0.15); color: #2ECC71;
+      border-color: rgba(46,204,113,0.35);
+    }
+    .btn-sm { height: 34px; padding: 0 12px; font-size: 12px; }
+    .btn-lg { height: 52px; padding: 0 28px; font-size: 16px; border-radius: var(--radius); }
+    .btn-block { width: 100%; }
+    .btn-icon {
+      width: var(--min-touch); height: var(--min-touch);
+      padding: 0; border-radius: 8px; font-size: 16px;
+      background: transparent; color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .btn-icon:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+
+    /* ============================================================
+       FORMS
+    ============================================================ */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .form-group label .required { color: var(--danger); margin-left: 3px; }
+    .form-control {
+      width: 100%; padding: 11px 14px;
+      background: var(--bg-input); color: var(--text-primary);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      font-family: var(--font-sans); font-size: 14px;
+      transition: var(--transition);
+      -webkit-appearance: none; appearance: none;
+      min-height: var(--min-touch);
+    }
+    .form-control:focus {
+      outline: none; border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+    }
+    .form-control::placeholder { color: var(--text-muted); }
+    textarea.form-control { min-height: 100px; resize: vertical; line-height: 1.5; }
+    select.form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A8B5C8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      padding-right: 36px;
+    }
+    .form-row {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+    .form-error { font-size: 12px; color: var(--danger); margin-top: 5px; display: none; }
+    .form-control.invalid { border-color: var(--danger); }
+    .form-section {
+      margin-bottom: 24px; padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .form-section-title {
+      font-size: 13px; font-weight: 700; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+
+    /* ============================================================
+       ACTION MENU
+    ============================================================ */
+    .action-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px; margin-bottom: 24px;
+    }
+    .action-btn {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 16px;
+      cursor: pointer; text-align: left;
+      transition: var(--transition); min-height: var(--min-touch);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .action-btn:hover {
+      border-color: var(--gold); background: rgba(201,168,76,0.06);
+      transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .action-btn.active {
+      border-color: var(--gold); background: rgba(201,168,76,0.1);
+      box-shadow: 0 0 0 2px rgba(201,168,76,0.2);
+    }
+    .action-icon { font-size: 24px; }
+    .action-label { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+    .action-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+    /* ============================================================
+       TABLES / REGISTERS
+    ============================================================ */
+    .register-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .register-search {
+      flex: 1; min-width: 180px; max-width: 300px;
+      position: relative;
+    }
+    .register-search input {
+      width: 100%; padding: 9px 14px 9px 36px;
+      background: var(--bg-input); color: var(--text-primary);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      font-size: 13px;
+    }
+    .register-search input:focus { outline: none; border-color: var(--gold); }
+    .register-search .search-icon {
+      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 14px; pointer-events: none;
+    }
+    .table-wrapper {
+      width: 100%; overflow-x: auto; border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    thead { background: var(--navy-mid); }
+    th {
+      padding: 11px 14px; text-align: left;
+      font-size: 11px; font-weight: 700; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.7px;
+      white-space: nowrap; border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 11px 14px; color: var(--text-primary);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle; max-width: 200px;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    .table-empty {
+      text-align: center; padding: 40px 20px;
+      color: var(--text-muted); font-size: 14px;
+    }
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 9px; border-radius: 12px;
+      font-size: 11px; font-weight: 600;
+    }
+    .badge-success { background: rgba(46,204,113,0.15); color: var(--success); }
+    .badge-warning { background: rgba(243,156,18,0.15); color: var(--warning); }
+    .badge-danger  { background: rgba(231,76,60,0.15);  color: var(--danger);  }
+    .badge-info    { background: rgba(52,152,219,0.15); color: var(--info);    }
+    .badge-gray    { background: rgba(168,181,200,0.15); color: var(--text-secondary); }
+    .row-actions { display: flex; gap: 6px; }
+
+    /* ============================================================
+       SUB-NAVIGATION (Registers / Documents / Backup)
+    ============================================================ */
+    .sub-nav {
+      display: flex; gap: 4px; margin-bottom: 20px;
+      border-bottom: 1px solid var(--border); padding-bottom: 0;
+    }
+    .sub-nav-btn {
+      padding: 10px 18px; font-size: 13px; font-weight: 600;
+      color: var(--text-muted); background: transparent; border: none;
+      border-bottom: 2px solid transparent; cursor: pointer;
+      transition: var(--transition); margin-bottom: -1px;
+    }
+    .sub-nav-btn:hover { color: var(--text-primary); }
+    .sub-nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* ============================================================
+       REGISTER TABS (for multi-register views)
+    ============================================================ */
+    .reg-tabs {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .reg-tab-btn {
+      padding: 7px 14px; font-size: 12px; font-weight: 600;
+      background: var(--bg-input); color: var(--text-secondary);
+      border: 1px solid var(--border); border-radius: 20px;
+      cursor: pointer; transition: var(--transition);
+    }
+    .reg-tab-btn.active {
+      background: rgba(201,168,76,0.15); color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+
+    /* ============================================================
+       MODALS
+    ============================================================ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--navy-light); border: 1px solid var(--border);
+      border-radius: 16px; width: 100%; max-width: 680px;
+      max-height: 90vh; display: flex; flex-direction: column;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      animation: modalIn 0.2s ease;
+    }
+    .modal.modal-sm { max-width: 460px; }
+    .modal.modal-lg { max-width: 900px; }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .modal-title {
+      font-size: 17px; font-weight: 700; color: var(--text-primary);
+    }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); cursor: pointer; font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .modal-close:hover { background: rgba(231,76,60,0.15); color: var(--danger); }
+    .modal-body {
+      padding: 24px; overflow-y: auto; flex: 1;
+    }
+    .modal-footer {
+      padding: 16px 24px; border-top: 1px solid var(--border);
+      display: flex; gap: 10px; justify-content: flex-end; flex-shrink: 0;
+    }
+
+    /* ============================================================
+       DOC PREVIEW MODAL
+    ============================================================ */
+    #docPreviewOverlay .modal {
+      max-width: 1000px; max-height: 95vh;
+    }
+    .doc-tabs {
+      display: flex; gap: 4px; padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto; flex-shrink: 0;
+    }
+    .doc-tab-btn {
+      padding: 10px 18px; font-size: 13px; font-weight: 600;
+      color: var(--text-muted); background: transparent; border: none;
+      border-bottom: 2px solid transparent; cursor: pointer;
+      transition: var(--transition); white-space: nowrap; margin-bottom: -1px;
+    }
+    .doc-tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .doc-preview-area {
+      flex: 1; overflow-y: auto; padding: 24px;
+      background: #E8E8E8;
+    }
+    .doc-frame {
+      background: white; width: 210mm; max-width: 100%;
+      margin: 0 auto; padding: 20mm 25mm;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      border-radius: 4px; min-height: 297mm;
+      color: #000; font-family: var(--font-serif);
+      font-size: 11pt; line-height: 1.6;
+    }
+    .doc-frame * { color: #000 !important; }
+
+    /* ============================================================
+       DOCUMENT TEMPLATE STYLES (for print/PDF)
+    ============================================================ */
+    .doc-letterhead {
+      border-bottom: 2px solid #1a1a1a; margin-bottom: 24px; padding-bottom: 16px;
+    }
+    .doc-entity-name {
+      font-size: 16pt; font-weight: bold; font-family: var(--font-serif);
+      letter-spacing: 1px; margin-bottom: 3px;
+    }
+    .doc-entity-sub {
+      font-size: 10pt; color: #444; margin-bottom: 2px;
+    }
+    .doc-date-line {
+      text-align: right; font-size: 10pt; margin-bottom: 20px;
+    }
+    .doc-title {
+      font-size: 13pt; font-weight: bold; text-align: center;
+      margin-bottom: 20px; text-decoration: underline;
+    }
+    .doc-body p { margin-bottom: 10px; }
+    .doc-resolution-box {
+      border: 1px solid #333; padding: 14px 18px; margin: 16px 0;
+      background: #f9f9f9;
+    }
+    .doc-resolution-box .res-label {
+      font-size: 9pt; text-transform: uppercase; letter-spacing: 1px;
+      color: #666; margin-bottom: 5px; font-weight: bold;
+    }
+    .sig-block {
+      margin-top: 40px; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 30px;
+    }
+    .sig-line {
+      border-bottom: 1px solid #333; margin-bottom: 6px; height: 40px;
+      display: flex; align-items: flex-end;
+    }
+    .sig-name { font-size: 10pt; }
+    .sig-title { font-size: 9pt; color: #555; }
+    .doc-table {
+      width: 100%; border-collapse: collapse; margin: 16px 0;
+      font-size: 10pt;
+    }
+    .doc-table th {
+      background: #f0f0f0; border: 1px solid #ccc;
+      padding: 7px 10px; text-align: left; font-weight: bold; font-size: 9pt;
+    }
+    .doc-table td {
+      border: 1px solid #ddd; padding: 6px 10px; vertical-align: top;
+    }
+
+    /* ============================================================
+       SIGNATURE PAD AREA
+    ============================================================ */
+    .sig-options {
+      display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .sig-option-btn {
+      padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      border: 1px solid var(--border); background: var(--bg-input);
+      color: var(--text-secondary); cursor: pointer; transition: var(--transition);
+    }
+    .sig-option-btn.active {
+      background: rgba(201,168,76,0.15); color: var(--gold); border-color: var(--gold-dim);
+    }
+    .sig-type-area { display: none; }
+    .sig-upload-area { display: none; }
+    .sig-type-area.show, .sig-upload-area.show { display: block; }
+    .sig-preview {
+      font-family: 'Brush Script MT', cursive, var(--font-serif);
+      font-size: 32px; color: #000; padding: 10px;
+      background: white; border-radius: 4px; margin-top: 8px;
+      min-height: 60px;
+    }
+
+    /* ============================================================
+       TOAST NOTIFICATIONS
+    ============================================================ */
+    #toastContainer {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 8px;
+      pointer-events: none; max-width: 360px;
+    }
+    .toast {
+      background: var(--navy-light); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 18px;
+      display: flex; align-items: flex-start; gap: 12px;
+      box-shadow: var(--shadow);
+      animation: toastIn 0.25s ease;
+      pointer-events: all;
+    }
+    .toast.success { border-left: 4px solid var(--success); }
+    .toast.error   { border-left: 4px solid var(--danger);  }
+    .toast.warning { border-left: 4px solid var(--warning); }
+    .toast.info    { border-left: 4px solid var(--info);    }
+    .toast-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .toast-msg  { font-size: 13px; color: var(--text-primary); line-height: 1.4; }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ============================================================
+       LOADING STATES
+    ============================================================ */
+    .spinner {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.2); border-top-color: var(--gold);
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-overlay {
+      position: fixed; inset: 0; z-index: 9998;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+      display: none; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+    }
+    .loading-overlay.show { display: flex; }
+    .loading-text { color: var(--text-secondary); font-size: 14px; }
+
+    /* ============================================================
+       SETTINGS PAGE
+    ============================================================ */
+    .settings-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .settings-save-bar {
+      position: sticky; bottom: 0; left: 0; right: 0;
+      background: var(--navy-light); border-top: 1px solid var(--border);
+      padding: 16px 24px; display: flex; align-items: center;
+      justify-content: space-between; margin: -20px; margin-top: 24px;
+    }
+
+    /* ============================================================
+       DOC HISTORY
+    ============================================================ */
+    .history-list { display: flex; flex-direction: column; gap: 10px; }
+    .history-item {
+      background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .history-item-info { flex: 1; }
+    .history-item-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .history-item-meta  { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .history-item-count { font-size: 12px; color: var(--text-secondary); }
+
+    /* ============================================================
+       BACKUP SECTION
+    ============================================================ */
+    .backup-panel {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .backup-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .backup-card-title { font-size: 15px; font-weight: 700; }
+    .backup-card-desc  { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ============================================================
+       DIALOG (confirm)
+    ============================================================ */
+    #confirmDialog {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    #confirmDialog.show { display: flex; }
+    .confirm-box {
+      background: var(--navy-light); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px 28px 24px;
+      width: 100%; max-width: 380px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .confirm-icon { font-size: 36px; margin-bottom: 12px; }
+    .confirm-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .confirm-msg { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
+    .confirm-actions { display: flex; gap: 10px; justify-content: center; }
+
+    /* ============================================================
+       BENEFICIARY LIST
+    ============================================================ */
+    .bene-list { display: flex; flex-direction: column; gap: 8px; }
+    .bene-row {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .bene-row input { flex: 1; }
+    .bene-type {
+      font-size: 11px; padding: 3px 8px; border-radius: 10px;
+      background: rgba(201,168,76,0.15); color: var(--gold);
+      font-weight: 600; white-space: nowrap;
+    }
+
+    /* ============================================================
+       DISTRIBUTION TABLE (Annual Distribution)
+    ============================================================ */
+    .distrib-table { width: 100%; }
+    .distrib-row {
+      display: flex; gap: 10px; align-items: center; margin-bottom: 10px;
+    }
+    .distrib-row .name-field { flex: 2; }
+    .distrib-row .pct-field  { flex: 1; }
+    .distrib-row .amt-field  { flex: 1; }
+
+    /* ============================================================
+       RESPONSIVE / IPAD ADJUSTMENTS
+    ============================================================ */
+    @media (max-width: 768px) {
+      .tab-btn { padding: 0 14px; font-size: 12px; }
+      .card { padding: 16px; }
+      .entity-grid { grid-template-columns: repeat(2, 1fr); }
+      .action-menu { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+      .doc-frame { padding: 15mm 12mm; }
+    }
+    @media (min-width: 1024px) {
+      .action-menu { grid-template-columns: repeat(4, 1fr); }
+      .entity-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* ============================================================
+       PRINT / PDF STYLES
+    ============================================================ */
+    @media print {
+      body > *:not(.doc-frame) { display: none !important; }
+      .doc-frame {
+        width: 100%; padding: 15mm 15mm; box-shadow: none;
+        margin: 0; min-height: auto;
+      }
+    }
+
+    /* ============================================================
+       MISC UTILITIES
+    ============================================================ */
+    .hidden { display: none !important; }
+    .text-gold    { color: var(--gold); }
+    .text-muted   { color: var(--text-muted); }
+    .text-success { color: var(--success); }
+    .text-danger  { color: var(--danger); }
+    .text-center  { text-align: center; }
+    .mb-0 { margin-bottom: 0; }
+    .mb-1 { margin-bottom: 8px; }
+    .mb-2 { margin-bottom: 16px; }
+    .mb-3 { margin-bottom: 24px; }
+    .mt-2 { margin-top: 16px; }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .gap-2 { gap: 16px; }
+    .gap-1 { gap: 8px; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .w-full { width: 100%; }
+    .divider {
+      border: none; border-top: 1px solid var(--border); margin: 20px 0;
+    }
+    .info-banner {
+      background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3);
+      border-radius: var(--radius-sm); padding: 12px 16px;
+      font-size: 13px; color: var(--info); margin-bottom: 16px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .info-banner .icon { flex-shrink: 0; margin-top: 1px; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       LOGIN SCREEN
+  ============================================================ -->
+  <div id="loginScreen" class="screen">
+    <div class="login-container">
+      <div class="login-logo">
+        <div class="logo-icon">JFD</div>
+        <h1>JFDCO</h1>
+        <p>Compliance Management System</p>
+      </div>
+      <div id="loginError" class="login-error">⚠️ Incorrect password. Please try again.</div>
+      <form id="loginForm" autocomplete="on">
+        <div class="form-group">
+          <label>System Password</label>
+          <input type="password" id="passwordInput" class="form-control"
+            placeholder="Enter password" autocomplete="current-password">
+        </div>
+        <label class="remember-row" for="rememberMeCheck">
+          <input type="checkbox" id="rememberMeCheck">
+          <span class="custom-checkbox"></span>
+          <span class="remember-label">Remember me on this device</span>
+        </label>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign In</button>
+      </form>
+      <p style="text-align:center; margin-top:20px; font-size:12px; color:var(--text-muted);">
+        v1.0.0 &nbsp;·&nbsp; Client-side secure &nbsp;·&nbsp; Data stays on device
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN APP
+  ============================================================ -->
+  <div id="mainApp" class="screen" style="flex-direction:column;">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="header-logo">JFD</div>
+        <div>
+          <div class="header-title">JFDCO Compliance System</div>
+          <div class="header-subtitle">Corporate Compliance &amp; Document Management</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="backupBadge" class="backup-badge">⚠️ Backup overdue</div>
+        <button class="btn btn-icon" id="themeToggle" title="Toggle light/dark mode">🌙</button>
+        <button class="btn btn-ghost" id="logoutBtn">Logout</button>
+      </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="trust">
+        <span class="tab-icon">🏛️</span> JFDCO Family Trust
+      </button>
+      <button class="tab-btn" data-tab="company">
+        <span class="tab-icon">🏢</span> JFDCO Pty Ltd
+      </button>
+      <button class="tab-btn" data-tab="operating">
+        <span class="tab-icon">⚙️</span> ATF Operating Entity
+      </button>
+      <button class="tab-btn" data-tab="settings">
+        <span class="tab-icon">⚙️</span> Settings
+      </button>
+    </nav>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+
+      <!-- ======================================================
+           TRUST TAB
+      ====================================================== -->
+      <div id="tabTrust" class="tab-panel active">
+        <div class="entity-card">
+          <div class="entity-name">JFDCO FAMILY TRUST</div>
+          <div class="entity-subtitle">Discretionary Family Trust</div>
+          <div class="entity-grid" id="trustInfoGrid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Trust Templates -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">📄</span> Document Templates</div>
+          </div>
+          <p style="color:var(--text-secondary); font-size:13px; margin-bottom:16px;">
+            Generate formal documents from the Appointor to the Trustee.
+          </p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn btn-secondary" onclick="App.showTrustTemplate('appointorLetter')">
+              📨 Letter from Appointor to Trustee
+            </button>
+          </div>
+        </div>
+
+        <!-- Trust Beneficiaries Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">👥</span> Beneficiaries</div>
+          </div>
+          <div id="trustBeneList"><!-- Populated by JS --></div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           COMPANY TAB
+      ====================================================== -->
+      <div id="tabCompany" class="tab-panel">
+        <div class="entity-card">
+          <div class="entity-name">JFDCO PTY LTD</div>
+          <div class="entity-subtitle">ACN 698 582 946 — Corporate Trustee</div>
+          <div class="entity-grid" id="companyInfoGrid"><!-- Populated by JS --></div>
+        </div>
+
+        <!-- Company sub-nav -->
+        <div class="sub-nav">
+          <button class="sub-nav-btn active" data-subnav="company" data-section="compTemplates">Templates</button>
+          <button class="sub-nav-btn" data-subnav="company" data-section="compRegisters">Registers</button>
+        </div>
+
+        <!-- Company Templates Section -->
+        <div id="compTemplates" class="comp-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><span class="icon">📄</span> Document Templates</div>
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="btn btn-secondary" onclick="App.showCompanyTemplate('directorResolution')">📋 Director's Resolution</button>
+              <button class="btn btn-secondary" onclick="App.showCompanyTemplate('consentDirector')">✍️ Consent to Act as Director</button>
+              <button class="btn btn-secondary" onclick="App.showCompanyTemplate('shareCertificate')">📜 Share Certificate</button>
+              <button class="btn btn-secondary" onclick="App.showCompanyTemplate('shareTransfer')">🔄 Share Transfer Form</button>
+              <button class="btn btn-secondary" onclick="App.showCompanyTemplate('shareAllotment')">📈 Share Allotment Resolution</button>
+              <button class="btn btn-secondary" onclick="App.showCompanyTemplate('bankLetterCompany')">🏦 Letter to Bank</button>
+              <button class="btn btn-secondary" onclick="App.showCompanyTemplate('meetingMinutesCompany')">🗒️ Meeting Minutes</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Company Registers Section -->
+        <div id="compRegisters" class="comp-section hidden">
+          <div class="reg-tabs" id="compRegTabs">
+            <button class="reg-tab-btn active" data-reg="companyShares">Share Certificates</button>
+            <button class="reg-tab-btn" data-reg="companyMembers">Register of Members</button>
+            <button class="reg-tab-btn" data-reg="companyDirectors">Directors &amp; Officers</button>
+            <button class="reg-tab-btn" data-reg="companyDirChanges">Director Change Log</button>
+            <button class="reg-tab-btn" data-reg="companyResolutions">Company Resolutions</button>
+          </div>
+          <div id="compRegisterContent"><!-- Populated by JS --></div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           OPERATING TAB
+      ====================================================== -->
+      <div id="tabOperating" class="tab-panel">
+        <div class="entity-card">
+          <div class="entity-name">JFDCO PTY LTD ATF JFDCO FAMILY TRUST</div>
+          <div class="entity-subtitle">Operating Entity — All Trust Business Conducted Here</div>
+          <div class="entity-grid" id="operatingInfoGrid"><!-- Populated by JS --></div>
+        </div>
+
+        <!-- Operating sub-nav -->
+        <div class="sub-nav">
+          <button class="sub-nav-btn active" data-subnav="operating" data-section="opActions">Actions</button>
+          <button class="sub-nav-btn" data-subnav="operating" data-section="opRegisters">Registers</button>
+          <button class="sub-nav-btn" data-subnav="operating" data-section="opDocHistory">Document History</button>
+          <button class="sub-nav-btn" data-subnav="operating" data-section="opBackup">Backup &amp; Restore</button>
+        </div>
+
+        <!-- Actions Section -->
+        <div id="opActions" class="op-section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><span class="icon">⚡</span> Trust Actions</div>
+            </div>
+            <p style="color:var(--text-secondary); font-size:13px; margin-bottom:16px;">
+              Select an action to generate the required documents and update registers.
+            </p>
+            <div class="action-menu" id="actionMenu">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+          <!-- Action Form (appears below menu) -->
+          <div id="actionFormArea" class="hidden">
+            <!-- Populated by JS dynamically -->
+          </div>
+        </div>
+
+        <!-- Registers Section -->
+        <div id="opRegisters" class="op-section hidden">
+          <div class="reg-tabs" id="trustRegTabs">
+            <button class="reg-tab-btn active" data-reg="trustAssets">Assets</button>
+            <button class="reg-tab-btn" data-reg="trustCapital">Capital</button>
+            <button class="reg-tab-btn" data-reg="trustLoans">Loans</button>
+            <button class="reg-tab-btn" data-reg="trustInvestments">Investments</button>
+            <button class="reg-tab-btn" data-reg="trustResolutions">Resolutions</button>
+            <button class="reg-tab-btn" data-reg="trustTransactions">Transactions</button>
+            <button class="reg-tab-btn" data-reg="trustDocChecks">Doc Checklist</button>
+          </div>
+          <div id="trustRegisterContent"><!-- Populated by JS --></div>
+        </div>
+
+        <!-- Document History Section -->
+        <div id="opDocHistory" class="op-section hidden">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><span class="icon">📁</span> Document History</div>
+              <button class="btn btn-ghost btn-sm" onclick="App.clearDocHistory()">Clear History</button>
+            </div>
+            <div id="docHistoryList"><!-- Populated by JS --></div>
+          </div>
+        </div>
+
+        <!-- Backup & Restore Section -->
+        <div id="opBackup" class="op-section hidden">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><span class="icon">💾</span> Backup &amp; Restore</div>
+            </div>
+            <p style="color:var(--text-secondary); font-size:13px; margin-bottom:20px;">
+              All register data, settings, and document history are stored locally in your browser.
+              Export regularly to prevent data loss.
+            </p>
+            <div id="lastBackupInfo" style="margin-bottom:20px; font-size:13px; color:var(--text-secondary);"></div>
+            <div class="backup-panel">
+              <div class="backup-card">
+                <div class="backup-card-title">📤 Export Backup</div>
+                <div class="backup-card-desc">Download all data as a JSON file. Keep this file safe — it contains your complete compliance records.</div>
+                <button class="btn btn-primary" onclick="App.exportBackup()">Export All Data</button>
+              </div>
+              <div class="backup-card">
+                <div class="backup-card-title">📥 Restore from Backup</div>
+                <div class="backup-card-desc">Restore a previously exported JSON backup file. This will overwrite all current data.</div>
+                <input type="file" id="restoreFileInput" accept=".json" style="display:none" onchange="App.importBackup(event)">
+                <button class="btn btn-ghost" onclick="document.getElementById('restoreFileInput').click()">Select Backup File</button>
+              </div>
+              <div class="backup-card">
+                <div class="backup-card-title">🔑 Change Password</div>
+                <div class="backup-card-desc">Update the system login password. You will need the current password to confirm.</div>
+                <button class="btn btn-ghost" onclick="App.showChangePassword()">Change Password</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SETTINGS TAB
+      ====================================================== -->
+      <div id="tabSettings" class="tab-panel">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">🏢</span> Company Details</div>
+          </div>
+          <div class="form-row" id="settingsCompany"><!-- Populated by JS --></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">🏛️</span> Trust Details</div>
+          </div>
+          <div class="form-row" id="settingsTrust"><!-- Populated by JS --></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">👤</span> Director / Appointor</div>
+          </div>
+          <div class="form-row" id="settingsDirector"><!-- Populated by JS --></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">👥</span> Beneficiaries</div>
+            <button class="btn btn-secondary btn-sm" onclick="Settings.addBeneficiary()">+ Add</button>
+          </div>
+          <div class="bene-list" id="settingsBeneficiaries"><!-- Populated by JS --></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">📈</span> Share Structure</div>
+          </div>
+          <div class="form-row" id="settingsShares"><!-- Populated by JS --></div>
+        </div>
+        <div style="padding: 16px 0;">
+          <button class="btn btn-primary btn-lg" onclick="Settings.save()">Save Settings</button>
+          <span id="settingsSaveMsg" style="margin-left:16px; font-size:13px; color:var(--success); display:none;">✓ Saved</span>
+        </div>
+      </div>
+
+    </div><!-- end tab-content -->
+  </div><!-- end mainApp -->
+
+  <!-- ============================================================
+       GENERIC MODAL
+  ============================================================ -->
+  <div id="genericModal" class="modal-overlay">
+    <div class="modal modal-lg" id="genericModalBox">
+      <div class="modal-header">
+        <div class="modal-title" id="genericModalTitle">Modal</div>
+        <button class="modal-close" onclick="Modal.close()">✕</button>
+      </div>
+      <div class="modal-body" id="genericModalBody"></div>
+      <div class="modal-footer" id="genericModalFooter"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       DOCUMENT PREVIEW MODAL
+  ============================================================ -->
+  <div id="docPreviewOverlay" class="modal-overlay">
+    <div class="modal" style="max-width:950px; max-height:96vh;">
+      <div class="modal-header">
+        <div class="modal-title" id="docPreviewTitle">Document Preview</div>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="downloadAllBtn">⬇️ Download All PDFs</button>
+          <button class="modal-close" onclick="DocPreview.close()">✕</button>
+        </div>
+      </div>
+      <div class="doc-tabs" id="docTabs"></div>
+      <div class="doc-preview-area" id="docPreviewArea"></div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="DocPreview.close()">Cancel</button>
+        <button class="btn btn-success" id="confirmDocsBtn">✓ Confirm &amp; Save to Registers</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       REGISTER ROW EDIT MODAL
+  ============================================================ -->
+  <div id="rowEditModal" class="modal-overlay">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <div class="modal-title" id="rowEditTitle">Edit Entry</div>
+        <button class="modal-close" onclick="RegisterUI.closeEdit()">✕</button>
+      </div>
+      <div class="modal-body" id="rowEditBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="RegisterUI.closeEdit()">Cancel</button>
+        <button class="btn btn-primary" id="rowEditSaveBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CONFIRM DIALOG
+  ============================================================ -->
+  <div id="confirmDialog">
+    <div class="confirm-box">
+      <div class="confirm-icon" id="confirmIcon">⚠️</div>
+      <div class="confirm-title" id="confirmTitle">Are you sure?</div>
+      <div class="confirm-msg" id="confirmMsg"></div>
+      <div class="confirm-actions">
+        <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+        <button class="btn btn-danger" id="confirmOk">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       LOADING OVERLAY
+  ============================================================ -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">Generating documents…</div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer"></div>
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
