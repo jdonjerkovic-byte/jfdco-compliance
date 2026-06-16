@@ -245,7 +245,9 @@ const INITIAL_DATA = {
   trustResolutions: [
     { resolutionNo: 'TR001', date: '05/06/2026', description: 'Acceptance of Trusteeship', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' },
     { resolutionNo: 'TR002', date: '05/06/2026', description: 'Adoption of Trust Deed', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' },
-    { resolutionNo: 'TR003', date: '05/06/2026', description: 'Banking Authority — Trust Account', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' }
+    { resolutionNo: 'TR003', date: '05/06/2026', description: 'Banking Authority — Trust Account', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' },
+    { resolutionNo: 'TR004', date: '05/06/2026', description: 'Vehicle Purchase Authorisation — Motor Vehicle (details TBC)', meetingRef: 'Minutes_TR004', signedBy: 'James Francis Donaghy', filed: 'Yes' },
+    { resolutionNo: 'TR005', date: '16/06/2026', description: 'Banking Authority — ANNA Money Trust Account', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' }
   ],
   trustTransactions: [
     { transId: 'T001', date: '04/06/2026', type: 'Settlement', description: 'Initial settlement sum', debit: '', credit: '$10.00', balance: '$10.00', relatedRef: 'C001', notes: 'Trust establishment' }
