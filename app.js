@@ -18,7 +18,8 @@ const DEFAULT_SETTINGS = {
     address: '3 Gulf Court, Largs Bay SA 5016',
     purpose: 'Corporate Trustee — JFDCO FAMILY TRUST',
     secretary: 'Not Appointed (exempt under s.204A)',
-    dateIncorporated: '05/06/2026'
+    dateIncorporated: '05/06/2026',
+    asicRegistrationDate: '01/06/2026'
   },
   trust: {
     name: 'JFDCO FAMILY TRUST',
@@ -34,7 +35,7 @@ const DEFAULT_SETTINGS = {
     fullName: 'James Francis Donaghy',
     dob: '13/06/1984',
     address: '3 Gulf Court, Largs Bay SA 5016',
-    occupation: '',
+    occupation: 'Welder',
     directorId: '',
     email: 'jfdassetinvestment@protonmail.com',
     phone: '0414 894 276',
@@ -222,10 +223,10 @@ const INITIAL_DATA = {
     { certNo: '001', shareholder: 'James Francis Donaghy', address: '3 Gulf Court, Largs Bay SA 5016', numShares: '100', class: 'Ordinary', issueDate: '05/06/2026', cancelled: 'No', notes: 'Initial issue' }
   ],
   companyMembers: [
-    { memberNo: 'M001', fullName: 'James Francis Donaghy', dob: '13/06/1984', address: '3 Gulf Court, Largs Bay SA 5016', email: 'jamesdonaghy530@gmail.com', class: 'Ordinary', shares: '100', paidPerShare: '$1.00', totalPaid: '$100.00', certNo: '001', dateIssued: '05/06/2026', ceased: '—', notes: 'Founding member' }
+    { memberNo: 'M001', fullName: 'James Francis Donaghy', dob: '13/06/1984', address: '3 Gulf Court, Largs Bay SA 5016', email: 'jfdassetinvestment@protonmail.com', class: 'Ordinary', shares: '100', paidPerShare: '$1.00', totalPaid: '$100.00', certNo: '001', dateIssued: '05/06/2026', ceased: '—', notes: 'Sole Member. Holds the Trustee Share. Shares held beneficially in personal capacity.' }
   ],
   companyDirectors: [
-    { dirNo: 'D001', fullName: 'James Francis Donaghy', dob: '13/06/1984', address: '3 Gulf Court, Largs Bay SA 5016', occupation: '', role: 'Sole Director', dateAppointed: '05/06/2026', dateCeased: '—', consentSigned: 'Yes', directorId: '', notes: 'Founding director' }
+    { dirNo: 'D001', fullName: 'James Francis Donaghy', dob: '13/06/1984', address: '3 Gulf Court, Largs Bay SA 5016', occupation: 'Welder', role: 'Sole Director', dateAppointed: '05/06/2026', dateCeased: '—', consentSigned: 'Yes', directorId: '', notes: 'Founding director. Also Sole Member/Shareholder. Witness: Ivan Donjerkovic.' }
   ],
   companyDirChanges: [],
   companyResolutions: [
@@ -233,24 +234,24 @@ const INITIAL_DATA = {
     { resolutionNo: '002', date: '05/06/2026', description: 'Appointment of Director', signedBy: 'James Francis Donaghy', filed: 'Yes' },
     { resolutionNo: '003', date: '05/06/2026', description: 'Issue of Trustee Share (100 Ordinary Shares @ $1.00)', signedBy: 'James Francis Donaghy', filed: 'Yes' },
     { resolutionNo: '004', date: '05/06/2026', description: 'Acceptance of Trusteeship — JFDCO Family Trust', signedBy: 'James Francis Donaghy', filed: 'Yes' },
-    { resolutionNo: '005', date: '05/06/2026', description: 'Banking Authority — Company Account', signedBy: 'James Francis Donaghy', filed: 'Yes' },
+    { resolutionNo: '005', date: '05/06/2026', description: 'Banking Authority — NAB Port Adelaide (Business Transaction + Cash Maximiser)', signedBy: 'James Francis Donaghy', filed: 'Yes' },
     { resolutionNo: '006', date: '05/06/2026', description: 'Registered Office Confirmation — 3 Gulf Court, Largs Bay SA 5016', signedBy: 'James Francis Donaghy', filed: 'Yes' }
   ],
   trustAssets: [],
   trustCapital: [
-    { entryNo: 'C001', date: '04/06/2026', contributor: 'James Donaghy', amount: '$10.00', type: 'Settlement Sum', notes: 'Initial settlement' }
+    { entryNo: 'C001', date: '05/06/2026', contributor: 'Ivan Donjerkovic (Settlor)', amount: '$10.00', type: 'Settlement Sum', notes: 'Initial settlement. Settlor: Ivan Donjerkovic, 24 Kanimbla St, Taperoo SA 5017. Witness: Jayde Herraman.' }
   ],
   trustLoans: [],
   trustInvestments: [],
   trustResolutions: [
     { resolutionNo: 'TR001', date: '05/06/2026', description: 'Acceptance of Trusteeship', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' },
     { resolutionNo: 'TR002', date: '05/06/2026', description: 'Adoption of Trust Deed', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' },
-    { resolutionNo: 'TR003', date: '05/06/2026', description: 'Banking Authority — Trust Account', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' },
+    { resolutionNo: 'TR003', date: '05/06/2026', description: 'Banking Authority — NAB Port Adelaide Trust Account (Business Everyday + Cash Maximiser)', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' },
     { resolutionNo: 'TR004', date: '05/06/2026', description: 'Vehicle Purchase Authorisation — Motor Vehicle (details TBC)', meetingRef: 'Minutes_TR004', signedBy: 'James Francis Donaghy', filed: 'Yes' },
     { resolutionNo: 'TR005', date: '14/06/2026', description: 'Banking Authority — ANNA Money Trust Account', meetingRef: '—', signedBy: 'James Francis Donaghy', filed: 'Yes' }
   ],
   trustTransactions: [
-    { transId: 'T001', date: '04/06/2026', type: 'Settlement', description: 'Initial settlement sum', debit: '', credit: '$10.00', balance: '$10.00', relatedRef: 'C001', notes: 'Trust establishment' }
+    { transId: 'T001', date: '05/06/2026', type: 'Settlement', description: 'Initial settlement sum — Ivan Donjerkovic (Settlor)', debit: '', credit: '$10.00', balance: '$10.00', relatedRef: 'C001', notes: 'Trust establishment. Account 3000 — Settled Sum.' }
   ],
   trustDocChecks: []
 };
@@ -977,6 +978,35 @@ const Templates = {
     });
   },
 
+  // -- Accountant Confirmation Letter --
+  accountantConfirmation(data) {
+    const s = Settings.data;
+    return `<div class="doc-frame">${this._docStyle()}
+      ${this._letterhead('trust')}
+      <p><b>Date:</b> ${data.date || '____/____/________'}</p>
+      <p><b>To:</b> ${data.contributor || ''}<br>Attention: Your Accountant / Tax Adviser</p>
+      <p><b>Subject:</b> Capital Contribution Confirmation — ${s.trust.name}</p>
+      <p>Dear Sir/Madam,</p>
+      <p>We write to confirm that a capital contribution has been made to the <b>${s.trust.name}</b> as follows:</p>
+      <table>
+        <tr><td style="width:200px;"><b>Contributor</b></td><td>${data.contributor || ''}</td></tr>
+        <tr><td><b>Amount</b></td><td>${data.amount || ''}</td></tr>
+        <tr><td><b>Date Received</b></td><td>${data.date || ''}</td></tr>
+        <tr><td><b>Nature</b></td><td>Capital contribution — NOT income, NOT a loan</td></tr>
+        <tr><td><b>Capital Register No</b></td><td>${data.capitalNo || ''}</td></tr>
+      </table>
+      <p>For taxation and accounting purposes:</p>
+      <ul>
+        <li>This amount is recorded as trust capital (corpus) and does not form part of the trust's income.</li>
+        <li>No tax is payable by the trust on receipt of this amount.</li>
+        <li>The contribution does not alter the beneficial entitlements of beneficiaries unless the trustee exercises its discretion.</li>
+      </ul>
+      <p>Please update your records accordingly.</p>
+      <p>Yours faithfully,</p>
+      ${this._sigBlock('Director')}
+    </div>`;
+  },
+
   // -- Annual Distribution --
   annualDistribution(data) {
     const s = Settings.data;
@@ -988,6 +1018,41 @@ const Templates = {
       <p>The trustee, <b>${s.company.name}</b>, resolves:</p>
       <p>That the net income of the trust for the financial year ending 30 June ${data.fy || '____'} be distributed as follows:</p>
       <table><thead><tr><th>Beneficiary</th><th>Percentage</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table>
+      <p style="margin-top:20px;">Signed:</p>
+      ${this._sigBlock('Director')}
+      <p style="margin-top:8px;">Date: ${data.date || '____/____/________'}</p>
+    </div>`;
+  },
+
+  // -- Trust Distribution Strategy Worksheet --
+  distributionWorksheet(data) {
+    const s = Settings.data;
+    let rows = (data.distributions || []).map(d =>
+      `<tr><td>${d.name}</td><td style="text-align:center;">${d.percentage}</td><td style="text-align:right;">${d.amount}</td><td style="text-align:center;">Discretionary</td><td></td></tr>`
+    ).join('');
+    return `<div class="doc-frame">${this._docStyle()}
+      ${this._letterhead('trust')}
+      <h2 style="text-align:center;">Trust Distribution Strategy Worksheet</h2>
+      <h3>Financial Year Ending 30 June ${data.fy || '____'}</h3>
+      <table>
+        <tr><td style="width:200px;"><b>Date of Resolution</b></td><td>${data.date || ''}</td></tr>
+        <tr><td><b>Resolution No</b></td><td>${data.resolutionNo || ''}</td></tr>
+        <tr><td><b>Trust</b></td><td>${s.trust.name}</td></tr>
+        <tr><td><b>Trustee</b></td><td>${s.company.name}</td></tr>
+        <tr><td><b>ABN</b></td><td>${s.trust.abn}</td></tr>
+      </table>
+      <h3>Distribution Schedule</h3>
+      <table>
+        <thead><tr><th>Beneficiary</th><th>%</th><th>Amount ($)</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <h3>Trustee's Notes</h3>
+      <ul>
+        <li>This resolution MUST be made and signed before 30 June in the relevant financial year.</li>
+        <li>A copy of this worksheet must be provided to each beneficiary's accountant.</li>
+        <li>The distribution will be reflected in each beneficiary's income tax return.</li>
+        <li>Retain this document with the Trust Deed and other trust records.</li>
+      </ul>
       <p style="margin-top:20px;">Signed:</p>
       ${this._sigBlock('Director')}
       <p style="margin-top:8px;">Date: ${data.date || '____/____/________'}</p>
@@ -1006,6 +1071,40 @@ const Templates = {
       <p style="margin-top:20px;">Signed:</p>
       ${this._sigBlock('Sole Director')}
       <p style="margin-top:8px;">Date: ${data.date || '____/____/________'}</p>
+    </div>`;
+  },
+
+  // -- Loan Agreement Outline --
+  loanAgreement(data) {
+    const s = Settings.data;
+    return `<div class="doc-frame">${this._docStyle()}
+      ${this._letterhead('trust')}
+      <h2 style="text-align:center;">Loan Agreement — Outline</h2>
+      <p style="text-align:center; font-size:10pt; color:#888;">This document outlines the terms of the loan for record-keeping purposes. A formal loan agreement may be required for amounts above $10,000.</p>
+      <table>
+        <tr><td style="width:200px;"><b>Date</b></td><td>${data.date || ''}</td></tr>
+        <tr><td><b>Loan Reference</b></td><td>${data.loanNo || ''}</td></tr>
+        <tr><td><b>Direction</b></td><td>Loan ${data.direction || ''} the Trust</td></tr>
+        <tr><td><b>Trustee (Party A)</b></td><td>${s.company.name} ATF ${s.trust.name}</td></tr>
+        <tr><td><b>${data.direction === 'To' ? 'Lender (Party B)' : 'Borrower (Party B)'}</b></td><td>${data.party || ''}</td></tr>
+        <tr><td><b>Principal Amount</b></td><td>${data.amount || ''}</td></tr>
+        <tr><td><b>Interest Rate</b></td><td>${data.rate || 'Interest-free'}</td></tr>
+        <tr><td><b>Term</b></td><td>${data.term || 'On demand'}</td></tr>
+        <tr><td><b>Status</b></td><td>Active</td></tr>
+      </table>
+      <h3>Terms</h3>
+      <ol>
+        <li>The ${data.direction === 'To' ? 'lender' : 'borrower'} agrees to ${data.direction === 'To' ? 'lend' : 'repay'} the principal amount of ${data.amount} to the ${data.direction === 'To' ? 'trust' : data.party || '[Party]'}.</li>
+        <li>Interest ${data.rate && data.rate !== '0%' ? `accrues at ${data.rate} per annum` : 'is waived for the term of this agreement'}.</li>
+        <li>The loan is repayable ${data.term === 'On demand' ? 'on demand in writing' : `within ${data.term}`}.</li>
+        <li>This agreement is governed by the laws of South Australia.</li>
+      </ol>
+      <p style="margin-top:30px;">Signed by the Trustee:</p>
+      ${this._sigBlock('Director, ' + s.company.name)}
+      <p style="margin-top:20px;">Signed by ${data.party || 'Other Party'}:</p>
+      <div class="sig-line" style="border-top:1px solid #333; width:250px; margin-top:50px; padding-top:5px;">
+        <b>${data.party || ''}</b><br>Date: ${data.date || ''}
+      </div>
     </div>`;
   },
 
@@ -1195,6 +1294,7 @@ const Actions = {
           docs.push({ name: `Resolution_${resNo}`, html: Templates.capitalContributionResolution({ resolutionNo: resNo, date, amount, contributor }) });
           docs.push({ name: `Receipt_${capitalNo}`, html: Templates.trusteeReceipt({ date, contributor, amount, description: desc }) });
           docs.push({ name: `Acknowledgement_${capitalNo}`, html: Templates.capitalAcknowledgement({ date, contributor, amount }) });
+          docs.push({ name: `AccountantConfirm_${capitalNo}`, html: Templates.accountantConfirmation({ date, contributor, amount, capitalNo }) });
           regUpdates.push({ reg: 'trustCapital', entry: { entryNo: capitalNo, date, contributor, amount, type: desc, notes: '' } });
           regUpdates.push({ reg: 'trustResolutions', entry: { resolutionNo: resNo, date, description: `Capital Contribution — ${amount} from ${contributor}`, meetingRef: `Minutes_${resNo}`, signedBy: s.director.fullName, filed: 'Yes' } });
           regUpdates.push({ reg: 'trustTransactions', entry: { transId: transNo, date, type: 'Capital', description: `Capital contribution from ${contributor}`, debit: '', credit: amount, balance: '', relatedRef: capitalNo, notes: '' } });
@@ -1259,8 +1359,13 @@ const Actions = {
             if (name && (pct || amt)) distributions.push({ name, percentage: pct, amount: amt });
           });
           docs.push({ name: `Minutes_${resNo}`, html: Templates.meetingMinutes({ date, business: `Annual distribution of trust income for FY${fy}`, resolutions: [`Distribute trust income for FY${fy} to beneficiaries as per the distribution minute`], resolutionNos: [resNo] }) });
-          docs.push({ name: `Distribution_FY${fy}`, html: Templates.annualDistribution({ date, fy, distributions }) });
+          docs.push({ name: `Distribution_FY${fy}`, html: Templates.annualDistribution({ date, fy, distributions, resolutionNo: resNo }) });
+          docs.push({ name: `DistribWorksheet_FY${fy}`, html: Templates.distributionWorksheet({ date, fy, distributions, resolutionNo: resNo }) });
           regUpdates.push({ reg: 'trustResolutions', entry: { resolutionNo: resNo, date, description: `Annual Distribution — FY${fy}`, meetingRef: `Minutes_${resNo}`, signedBy: s.director.fullName, filed: 'Yes' } });
+          distributions.forEach(d => {
+            const tNo = RegisterUI.getNextId('trustTransactions');
+            regUpdates.push({ reg: 'trustTransactions', entry: { transId: tNo, date, type: 'Distribution', description: `FY${fy} distribution to ${d.name}`, debit: d.amount, credit: '', balance: '', relatedRef: resNo, notes: `${d.percentage}` } });
+          });
           break;
         }
         case 'bankAccount': {
@@ -1283,6 +1388,7 @@ const Actions = {
           const transNo = RegisterUI.getNextId('trustTransactions');
           docs.push({ name: `Minutes_${resNo}`, html: Templates.meetingMinutes({ date, business: `Loan ${direction.toLowerCase()} trust — ${amount} ${direction === 'To' ? 'from' : 'to'} ${party}`, resolutions: [`Authorise loan of ${amount} ${direction.toLowerCase()} the trust ${direction === 'To' ? 'from' : 'to'} ${party}`], resolutionNos: [resNo] }) });
           docs.push({ name: `Resolution_${resNo}`, html: Templates.trusteeResolution({ resolutionNo: resNo, date, points: [`The Trustee is authorised to ${direction === 'To' ? 'accept a loan' : 'make a loan'} of ${amount} ${direction === 'To' ? 'from' : 'to'} ${party}.`, `Interest Rate: ${rate || 'Interest-free'}`, `Term: ${term || 'On demand'}`, 'The loan shall be recorded in the Trust Loan Register.'] }) });
+          docs.push({ name: `LoanAgreement_${loanNo}`, html: Templates.loanAgreement({ date, loanNo, direction, party, amount, rate, term }) });
           regUpdates.push({ reg: 'trustLoans', entry: { loanId: loanNo, date, direction, party, amount, interestRate: rate || '0%', term: term || 'On demand', status: 'Active', notes: '' } });
           regUpdates.push({ reg: 'trustResolutions', entry: { resolutionNo: resNo, date, description: `Loan ${direction} Trust — ${amount} (${party})`, meetingRef: `Minutes_${resNo}`, signedBy: s.director.fullName, filed: 'Yes' } });
           regUpdates.push({ reg: 'trustTransactions', entry: { transId: transNo, date, type: 'Loan', description: `Loan ${direction.toLowerCase()} trust — ${party}`, debit: direction === 'From' ? amount : '', credit: direction === 'To' ? amount : '', balance: '', relatedRef: loanNo, notes: '' } });
@@ -1415,6 +1521,218 @@ const CompanyTemplates = {
             location: Settings.data.company.address
           });
           DocPreview.show([{ name: `CompMinutes`, html }], []);
+          Modal.close();
+        }
+      },
+      consentDirector: {
+        title: 'Consent to Act as Director',
+        body: `<div class="form-row">
+          <div class="form-group"><label>Date</label><input type="text" class="form-control" id="ct_date" value="${today}"></div>
+          <div class="form-group"><label>Director Name</label><input type="text" class="form-control" id="ct_dirName" value="${Settings.data.director.fullName}"></div>
+          <div class="form-group"><label>Address</label><input type="text" class="form-control" id="ct_dirAddress" value="${Settings.data.director.address}"></div>
+          <div class="form-group"><label>Director ID (if known)</label><input type="text" class="form-control" id="ct_dirId" value=""></div>
+        </div>`,
+        generate: () => {
+          const s = Settings.data;
+          const date = document.getElementById('ct_date').value;
+          const dirName = document.getElementById('ct_dirName').value;
+          const dirAddress = document.getElementById('ct_dirAddress').value;
+          const dirId = document.getElementById('ct_dirId').value;
+          const html = `<div class="doc-frame">${Templates._docStyle()}
+            ${Templates._letterhead('company')}
+            <h2 style="text-align:center;">Consent to Act as Director</h2>
+            <p>I, <b>${dirName}</b>, of ${dirAddress}, hereby consent to act as a director of <b>${s.company.name}</b> (ACN ${s.company.acn}).</p>
+            <p>I acknowledge that:</p>
+            <ul>
+              <li>I am not disqualified from managing a corporation under the Corporations Act 2001;</li>
+              <li>I have read the company's constitution and understand my obligations as a director;</li>
+              <li>I will act in the best interests of the company and perform my duties in accordance with the Corporations Act 2001.</li>
+            </ul>
+            ${dirId ? `<p><b>Director ID:</b> ${dirId}</p>` : ''}
+            <p style="margin-top:30px;">Signed:</p>
+            <div class="sig-line" style="border-top:1px solid #333; width:250px; margin-top:50px; padding-top:5px;">
+              <b>${dirName}</b><br>Director
+            </div>
+            <p style="margin-top:8px;">Date: ${date}</p>
+          </div>`;
+          DocPreview.show([{ name: `Consent_Director`, html }], []);
+          Modal.close();
+        }
+      },
+      shareCertificate: {
+        title: 'Share Certificate',
+        body: `<div class="form-row">
+          <div class="form-group"><label>Certificate No</label><input type="text" class="form-control" id="ct_certNo" value="${RegisterUI.getNextId('companyShares')}"></div>
+          <div class="form-group"><label>Date</label><input type="text" class="form-control" id="ct_date" value="${today}"></div>
+          <div class="form-group"><label>Shareholder Name</label><input type="text" class="form-control" id="ct_shName" value="${Settings.data.director.fullName}"></div>
+          <div class="form-group"><label>Address</label><input type="text" class="form-control" id="ct_shAddress" value="${Settings.data.director.address}"></div>
+          <div class="form-group"><label>Number of Shares</label><input type="text" class="form-control" id="ct_shares" value="100"></div>
+          <div class="form-group"><label>Class</label><input type="text" class="form-control" id="ct_class" value="Ordinary"></div>
+          <div class="form-group"><label>Amount Paid Per Share</label><input type="text" class="form-control" id="ct_paid" value="$1.00"></div>
+        </div>`,
+        generate: () => {
+          const s = Settings.data;
+          const certNo = document.getElementById('ct_certNo').value;
+          const date = document.getElementById('ct_date').value;
+          const shName = document.getElementById('ct_shName').value;
+          const shAddress = document.getElementById('ct_shAddress').value;
+          const shares = document.getElementById('ct_shares').value;
+          const cls = document.getElementById('ct_class').value;
+          const paid = document.getElementById('ct_paid').value;
+          const totalPaid = `$${(parseFloat(shares) * parseFloat(paid.replace('$','')) || 0).toFixed(2)}`;
+          const html = `<div class="doc-frame">${Templates._docStyle()}
+            <div style="border:3px double #1a1a1a; padding:30px; margin:10px; text-align:center;">
+              <div style="font-size:10pt; letter-spacing:2px; color:#666; margin-bottom:6px;">CERTIFICATE NUMBER: ${certNo}</div>
+              <h1 style="font-size:18pt; letter-spacing:2px; margin-bottom:4px;">${s.company.name}</h1>
+              <div style="font-size:10pt; color:#444;">ACN ${s.company.acn} | ABN ${s.company.abn}</div>
+              <div style="font-size:10pt; color:#444; margin-bottom:20px;">Incorporated in South Australia</div>
+              <div style="border-top:1px solid #999; border-bottom:1px solid #999; padding:16px 0; margin:16px 0;">
+                <div style="font-size:10pt;">This is to certify that</div>
+                <div style="font-size:16pt; font-weight:bold; margin:8px 0;">${shName}</div>
+                <div style="font-size:10pt;">${shAddress}</div>
+                <div style="font-size:10pt; margin-top:8px;">is the registered holder of</div>
+                <div style="font-size:22pt; font-weight:bold; margin:8px 0;">${shares}</div>
+                <div style="font-size:14pt;">${cls} Shares</div>
+                <div style="font-size:10pt; margin-top:8px;">of ${s.company.name}, fully paid at ${paid} per share</div>
+                <div style="font-size:10pt;">Total Consideration: ${totalPaid}</div>
+              </div>
+              <div style="font-size:10pt; margin-top:16px;">Issued on: ${date}</div>
+              <div style="margin-top:30px; display:flex; justify-content:space-around;">
+                <div style="text-align:center;">
+                  <div style="border-top:1px solid #333; width:200px; padding-top:5px; margin:auto;"></div>
+                  <div>${s.director.fullName}</div>
+                  <div style="font-size:10pt; color:#555;">Director</div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+          const resNo = RegisterUI.getNextId('companyResolutions');
+          DocPreview.show([{ name: `ShareCert_${certNo}`, html }],
+            [{ reg: 'companyShares', entry: { certNo, shareholder: shName, address: shAddress, numShares: shares, class: cls, issueDate: date, cancelled: 'No', notes: 'Issued' } },
+             { reg: 'companyResolutions', entry: { resolutionNo: resNo, date, description: `Issue of ${shares} ${cls} shares to ${shName}`, signedBy: s.director.fullName, filed: 'Yes' } }]);
+          Modal.close();
+        }
+      },
+      shareTransfer: {
+        title: 'Share Transfer Form',
+        body: `<div class="form-row">
+          <div class="form-group"><label>Date</label><input type="text" class="form-control" id="ct_date" value="${today}"></div>
+          <div class="form-group"><label>Transferor (Seller) Name</label><input type="text" class="form-control" id="ct_transferor" value="${Settings.data.director.fullName}"></div>
+          <div class="form-group"><label>Transferee (Buyer) Name</label><input type="text" class="form-control" id="ct_transferee"></div>
+          <div class="form-group"><label>Transferee Address</label><input type="text" class="form-control" id="ct_transAddress"></div>
+          <div class="form-group"><label>Number of Shares</label><input type="text" class="form-control" id="ct_shares" value="100"></div>
+          <div class="form-group"><label>Class</label><input type="text" class="form-control" id="ct_class" value="Ordinary"></div>
+          <div class="form-group"><label>Consideration</label><input type="text" class="form-control" id="ct_consideration" placeholder="$0.00"></div>
+          <div class="form-group"><label>Certificate No</label><input type="text" class="form-control" id="ct_certNo" value="001"></div>
+        </div>`,
+        generate: () => {
+          const s = Settings.data;
+          const date = document.getElementById('ct_date').value;
+          const transferor = document.getElementById('ct_transferor').value;
+          const transferee = document.getElementById('ct_transferee').value;
+          const transAddress = document.getElementById('ct_transAddress').value;
+          const shares = document.getElementById('ct_shares').value;
+          const cls = document.getElementById('ct_class').value;
+          const consideration = document.getElementById('ct_consideration').value;
+          const certNo = document.getElementById('ct_certNo').value;
+          const html = `<div class="doc-frame">${Templates._docStyle()}
+            ${Templates._letterhead('company')}
+            <h2 style="text-align:center;">Transfer of Shares</h2>
+            <p>For valuable consideration of <b>${consideration}</b> (receipt of which is hereby acknowledged), I/We, the transferor(s), do hereby transfer to the transferee(s) the shares described below:</p>
+            <table>
+              <tr><td style="width:180px;"><b>Number of Shares</b></td><td>${shares}</td></tr>
+              <tr><td><b>Class</b></td><td>${cls}</td></tr>
+              <tr><td><b>Certificate No(s)</b></td><td>${certNo}</td></tr>
+              <tr><td><b>Consideration</b></td><td>${consideration}</td></tr>
+            </table>
+            <h3>Transferor</h3>
+            <table>
+              <tr><td style="width:180px;"><b>Name</b></td><td>${transferor}</td></tr>
+              <tr><td><b>Signature</b></td><td style="height:50px;"></td></tr>
+              <tr><td><b>Date</b></td><td>${date}</td></tr>
+            </table>
+            <h3>Transferee</h3>
+            <table>
+              <tr><td style="width:180px;"><b>Name</b></td><td>${transferee}</td></tr>
+              <tr><td><b>Address</b></td><td>${transAddress}</td></tr>
+              <tr><td><b>Signature</b></td><td style="height:50px;"></td></tr>
+              <tr><td><b>Date</b></td><td>${date}</td></tr>
+            </table>
+            <p style="font-size:10pt; margin-top:16px;">I/We, the above-named transferee, hereby agree to accept the above transfer subject to the conditions on which the transferor held the same immediately before execution of this instrument of transfer, and I/We request that the transfer be registered in the Register of Members of ${s.company.name}.</p>
+            <p style="font-size:9pt; margin-top:10px;">This instrument of transfer is made pursuant to section 1071B of the Corporations Act 2001 (Cth).</p>
+          </div>`;
+          DocPreview.show([{ name: `ShareTransfer_${date}`, html }], []);
+          Modal.close();
+        }
+      },
+      shareAllotment: {
+        title: 'Share Allotment Resolution',
+        body: `<div class="form-row">
+          <div class="form-group"><label>Date</label><input type="text" class="form-control" id="ct_date" value="${today}"></div>
+          <div class="form-group"><label>Allottee Name</label><input type="text" class="form-control" id="ct_allottee" value="${Settings.data.director.fullName}"></div>
+          <div class="form-group"><label>Number of Shares</label><input type="text" class="form-control" id="ct_shares" value="100"></div>
+          <div class="form-group"><label>Class</label><input type="text" class="form-control" id="ct_class" value="Ordinary"></div>
+          <div class="form-group"><label>Price Per Share</label><input type="text" class="form-control" id="ct_price" value="$1.00"></div>
+        </div>`,
+        generate: () => {
+          const s = Settings.data;
+          const date = document.getElementById('ct_date').value;
+          const allottee = document.getElementById('ct_allottee').value;
+          const shares = document.getElementById('ct_shares').value;
+          const cls = document.getElementById('ct_class').value;
+          const price = document.getElementById('ct_price').value;
+          const total = `$${(parseFloat(shares) * parseFloat(price.replace('$','')) || 0).toFixed(2)}`;
+          const resNo = RegisterUI.getNextId('companyResolutions');
+          const html = Templates.companyDirectorResolution({
+            date,
+            points: [
+              `That ${shares} ${cls} shares of ${price} each be allotted to ${allottee} for a total consideration of ${total}.`,
+              `That the allotment be recorded in the Register of Members and a share certificate be issued accordingly.`,
+              `That the company secretary (or director) be authorised to update ASIC records and sign all documents necessary to give effect to this resolution.`
+            ]
+          });
+          DocPreview.show([{ name: `ShareAllotment_${resNo}`, html }],
+            [{ reg: 'companyResolutions', entry: { resolutionNo: resNo, date, description: `Allotment of ${shares} ${cls} shares to ${allottee}`, signedBy: s.director.fullName, filed: 'Yes' } }]);
+          Modal.close();
+        }
+      },
+      bankLetterCompany: {
+        title: 'Letter to Bank — Company Account',
+        body: `<div class="form-row">
+          <div class="form-group"><label>Date</label><input type="text" class="form-control" id="ct_date" value="${today}"></div>
+          <div class="form-group"><label>Bank Name</label><input type="text" class="form-control" id="ct_bank" placeholder="e.g. Commonwealth Bank"></div>
+          <div class="form-group"><label>Branch</label><input type="text" class="form-control" id="ct_branch"></div>
+          <div class="form-group"><label>Account Type</label><input type="text" class="form-control" id="ct_acctType" value="Business Transaction Account"></div>
+        </div>`,
+        generate: () => {
+          const s = Settings.data;
+          const date = document.getElementById('ct_date').value;
+          const bank = document.getElementById('ct_bank').value;
+          const branch = document.getElementById('ct_branch').value;
+          const acctType = document.getElementById('ct_acctType').value;
+          const html = `<div class="doc-frame">${Templates._docStyle()}
+            ${Templates._letterhead('company')}
+            <p><b>Date:</b> ${date}</p>
+            <p><b>To:</b> The Branch Manager<br>${bank}<br>${branch}</p>
+            <p><b>Subject:</b> Request to Open a ${acctType} — ${s.company.name}</p>
+            <p>Dear Sir/Madam,</p>
+            <p>I write on behalf of <b>${s.company.name}</b> (ACN ${s.company.acn}, ABN ${s.company.abn}), to request the opening of a ${acctType.toLowerCase()} in the company's name.</p>
+            <table>
+              <tr><td style="width:180px;"><b>Company Name</b></td><td>${s.company.name}</td></tr>
+              <tr><td><b>ACN</b></td><td>${s.company.acn}</td></tr>
+              <tr><td><b>ABN</b></td><td>${s.company.abn}</td></tr>
+              <tr><td><b>Registered Office</b></td><td>${s.company.address}</td></tr>
+              <tr><td><b>Account Name</b></td><td>${s.company.name}</td></tr>
+              <tr><td><b>Authorised Signatory</b></td><td>${s.director.fullName} (Sole Director)</td></tr>
+            </table>
+            <p>The director is the sole authorised signatory on this account.</p>
+            <p>Yours faithfully,</p>
+            ${Templates._sigBlock('Sole Director')}
+            <p style="font-size:10pt; margin-top:12px;">Email: ${s.director.email}<br>Phone: ${s.director.phone}</p>
+          </div>`;
+          const resNo = RegisterUI.getNextId('companyResolutions');
+          DocPreview.show([{ name: `BankLetter_Company`, html }],
+            [{ reg: 'companyResolutions', entry: { resolutionNo: resNo, date, description: `Banking Authority — ${bank}`, signedBy: s.director.fullName, filed: 'Yes' } }]);
           Modal.close();
         }
       }
